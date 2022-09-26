@@ -1,0 +1,92 @@
+
+body {
+  font-family: 'Prompt';
+  scroll-behavior: smooth;
+}
+
+.container, .container-fluid {
+  padding-right: 0; 
+  padding-left: 0;
+}
+
+.text-green {
+  color: #76B947;
+}
+
+.bg-green {
+  background-color: #76B947;
+}
+
+.form-control:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: #76B947 !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgb(118 185 71 / 25%);
+}
+
+.app-input {
+  outline: none;
+  border: 0px solid transparent !important;
+}
+
+.app-btn-primary  {
+  background-color: #76B947;
+  border-radius: 2rem;
+  color: #FFFFFF;
+}
+
+.app-btn-primary:hover  {
+  background-color: #6aa941 !important;
+  border-radius: 2rem;
+  color: #FFFFFF !important;
+}
+
+.app-btn-danger  {
+  background-color: #E44242;
+  border-radius: 2rem;
+  color: #FFFFFF;
+}
+
+.app-btn-danger:hover  {
+  background-color: #dd2020 !important;
+  border-radius: 2rem;
+  color: #FFFFFF !important;
+}
+
+.app-menu-item {
+  text-decoration: none;
+  background-color: transparent;
+  color: #000000;
+  transition: all 0.5s;
+}
+
+.app-menu-item:hover {
+  text-decoration: none;
+  background-color: #76B947;
+  color: #FFFFFF;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  color: #FFFFFF !important;
+  text-decoration: none;
+  background-color: #a7d28a;
+}
+
+.service-card {
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all;
+  transition-duration: 0.25s;
+  text-decoration: none;
+  color: #000000;
+}
+
+.service-card:hover {
+  background-color: #76B947;
+  color: #FFFFFF;
+}
