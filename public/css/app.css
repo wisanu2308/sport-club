@@ -90,3 +90,13 @@ body {
   background-color: #76B947;
   color: #FFFFFF;
 }
+
+.app-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.app-link:hover {
+  text-decoration: none;
+  color: inherit;
+}

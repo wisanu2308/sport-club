@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="container">
-    PAYMENT PAGE
+    PAYMENT DETAIL
 </div>
 
 @endsection

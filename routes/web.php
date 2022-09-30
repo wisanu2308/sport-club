@@ -32,14 +32,18 @@ Route::get('/signin', [MemberController::class, 'SignIn']);
 Route::get('/signup', [MemberController::class, 'SignUp']);
 Route::post('/do_signin', [MemberController::class, 'doSignIn']);
 Route::post('/do_signup', [MemberController::class, 'doSignUp']);
-Route::get('/signout', [MemberController::class, 'doSingOut']);
+Route::get('/signout', [MemberController::class, 'doSignOut']);
 Route::get('/profile', [MemberController::class, 'Profile']);
 Route::get('/history', [MemberController::class, 'History']);
 
 Route::get('/services', [ServiceController::class, 'Main']);
-Route::get('/services/{type}', [ServiceController::class, 'ServiceForm']);
+Route::get('/services/{type}', [ServiceController::class, 'ServiceField']);
+Route::get('/services/{type}/form', [ServiceController::class, 'ServiceForm']);
+Route::get('/services/{type}/confirm', [ServiceController::class, 'ServiceConfirm']);
+Route::get('/services/store', [ServiceController::class, 'storeService']);
 
 Route::get('/payment', [PaymentController::class, 'Main']);
+Route::get('/payment/{id}', [PaymentController::class, 'detail']);
 
 Route::get('/policies', [PolicyController::class, 'Main']);
 

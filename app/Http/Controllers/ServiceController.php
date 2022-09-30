@@ -10,7 +10,7 @@ class ServiceController extends Controller
         return view("services.index");
     }
 
-    public function ServiceForm($type){
+    public function ServiceField($type){
 
         // Fetching Data From Type
         $fieldList = array(
@@ -34,6 +34,31 @@ class ServiceController extends Controller
             
         );
         
+        return view("services.select_field", $pageElements);
+    }
+
+
+    public function ServiceForm($type){
+
+        $pageElements = array(
+            "type" => $type,
+        );
+        
         return view("services.form", $pageElements);
+    }
+
+    public function ServiceConfirm($type){
+
+        $pageElements = array(
+            "type" => $type,
+        );
+        
+        return view("services.confirm", $pageElements);
+    }
+
+    public function storeService(){
+
+        
+        return redirect("/");
     }
 }

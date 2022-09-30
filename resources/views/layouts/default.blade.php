@@ -22,10 +22,9 @@
     ['url' => "/", 'name' => "หน้าแรก"],
     ['url' => "/services", 'name' => "บริการ"],
     ['url' => "/payment", 'name' => "ชำระเงิน"],
-    ['url' => "/policies", 'name' => "ระเบียบการใช้ข่าวสาร"],
+    ['url' => "/promotion", 'name' => "โปรโมชั่น"],
     ['url' => "/contact", 'name' => "ติดต่อเรา"],
   );
- 
 ?>
 
 <body>
