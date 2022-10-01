@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-  ADMIN
+SPORT LIST
 </div>
 
 @endsection

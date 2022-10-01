@@ -20,8 +20,8 @@
 <?php 
   $menuList = array(
     ['url' => "/", 'name' => "หน้าแรก"],
-    ['url' => "/services", 'name' => "บริการ"],
-    ['url' => "/payment", 'name' => "ชำระเงิน"],
+    ['url' => "/sport", 'name' => "บริการ"],
+    // ['url' => "/payment", 'name' => "ชำระเงิน"],
     ['url' => "/promotion", 'name' => "โปรโมชั่น"],
     ['url' => "/contact", 'name' => "ติดต่อเรา"],
   );
@@ -39,7 +39,7 @@
           </div>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ url('/profile') }}">โปรไฟล์</a></li>
-            <li><a class="dropdown-item" href="{{ url('/history') }}">รายการจอง</a></li>
+            <li><a class="dropdown-item" href="{{ url('/mybooking') }}">รายการจอง</a></li>
             <li><a class="dropdown-item text-danger" href="{{ url('/signout') }}" onclick="return confirm('ต้องการออกจากระบบ?')">ออกจากระบบ</a></li>
           </ul>
         </div>

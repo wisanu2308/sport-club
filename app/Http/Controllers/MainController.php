@@ -4,7 +4,7 @@
 
   class MainController extends Controller {
     
-    public function Main() {
+    public function index() {
 
         // return view('user.profile', [
         //     'user' => User::findOrFail($id)

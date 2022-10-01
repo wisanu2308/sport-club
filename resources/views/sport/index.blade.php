@@ -8,32 +8,32 @@
     $serviceList = array(
         [
             'url' => 'soccer',
-            'image' => 'images/services/soccer.png',
+            'image' => 'images/sport/soccer.png',
             'name' => 'ฟุตบอล'
         ],
         [
             'url' => 'futsal',
-            'image' => 'images/services/futsal.png',
+            'image' => 'images/sport/futsal.png',
             'name' => 'ฟุตซอล'
         ],
         [
             'url' => 'badminton',
-            'image' => 'images/services/badminton.png',
+            'image' => 'images/sport/badminton.png',
             'name' => 'แบตมินตัน'
         ],
         [
             'url' => 'volleyball',
-            'image' => 'images/services/volleyball.png',
+            'image' => 'images/sport/volleyball.png',
             'name' => 'วอลเล่บอล'
         ],
         [
             'url' => 'table_tennis',
-            'image' => 'images/services/table_tennis.png',
+            'image' => 'images/sport/table_tennis.png',
             'name' => 'เทเบิลเทนนิส'
         ],
         [
             'url' => 'basketball',
-            'image' => 'images/services/basketball.png',
+            'image' => 'images/sport/basketball.png',
             'name' => 'บาสเกตบอล'
         ],
         [
@@ -56,7 +56,7 @@
     <div class="row justify-content-start py-5">
         @foreach($serviceList as $key => $value)
             <div class="col-md-3 p-4">
-                <a href="{{ url('/services/'.$value['url']) }}" class="service-card d-flex flex-column justify-content-center justify-items-center p-3">
+                <a href="{{ url('/sport/'.$value['url']) }}" class="service-card d-flex flex-column justify-content-center justify-items-center p-3">
                     <div style="max-height: 240px; overflow:hidden;" class="rounded">
                         <img src="{{ asset($value['image']) }}" class="img-fluid">
                     </div>

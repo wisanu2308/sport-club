@@ -7,15 +7,15 @@ use Illuminate\Http\Request;
 class MemberController extends Controller
 {
 
-    public function SignIn(){
+    public function signin(){
         return view("SignIn");
     }
 
-    public function SignUp(){
+    public function signup(){
         return view("SignUp");
     }
 
-    public function doSignIn(Request $request){
+    public function do_signin(Request $request){
         $post = $request->all();
         // dd($post);
         session(["username" => "Wisanu Kueansan"]);
@@ -23,21 +23,59 @@ class MemberController extends Controller
 
     }
 
-    public function doSignUp(Request $request){
+    public function do_signup(Request $request){
         echo "doSignUp !!";
     }
 
-    public function doSignOut(){
+    public function do_signout(){
         session()->flush();
         return redirect("/");
     }
 
-    public function Profile(){
+    public function profile(){
         echo "Profile !!";
     }
 
-    public function History(){
-        echo "History !!";
+    public function update_profile(){
+        echo "Update Profile !!";
+    }
+
+
+    // ADMIN
+    public function view() {
+
+
+        $pageElement = array(
+            
+        );
+        return view('admin/member.index', $pageElement);
+    }
+
+    public function detail() {
+
+        
+        $pageElement = array(
+            
+        );
+        return view('admin/member.detail', $pageElement);
+    }
+
+    public function form() {
+
+        $pageElement = array(
+            
+        );
+        return view('admin/member.form', $pageElement);
+    }
+
+    public function save() {
+        
+        return redirect("/admin/member");
+    }
+
+    public function delete() {
+        
+        return redirect("/admin/member");
     }
 
 

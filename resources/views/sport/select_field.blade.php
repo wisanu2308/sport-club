@@ -48,7 +48,7 @@
                     @foreach($timeList as $timeKey => $time)
                         <div class="col-md-3 px-5">
 
-                            <a href="{{ url('/services/'.$type.'/form') }}" class="app-link">
+                            <a href="{{ url('/sport/'.$type.'/form') }}" class="app-link">
                                 <?php if($time['is_available'] == "Y"){ ?>
                                     <div class="text-center bg-green text-white rounded-pill mb-4 py-2">
                                         {{$time["title"]}}

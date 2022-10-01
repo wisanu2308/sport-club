@@ -59,7 +59,7 @@
     <div class="row justify-content-center py-5">
         <div class="col-md-6 text-center">
             <a href="#" class="btn btn-lg btn-secondary">BACK</a>
-            <a href="{{url('/services/'.$type.'/confirm')}}" class="btn btn-lg btn-success">NEXT</a>
+            <a href="{{url('/sport/'.$type.'/confirm')}}" class="btn btn-lg btn-success">NEXT</a>
         </div>
     </div>
 

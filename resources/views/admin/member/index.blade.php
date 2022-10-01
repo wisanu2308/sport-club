@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-  ADMIN
+  MEMBER LIST
 </div>
 
 @endsection

@@ -1,11 +1,11 @@
 @extends('layouts.default')
 
-@section('sub_title', 'การชำระเงิน')
+@section('sub_title', 'โปรโมชั่น')
 
 @section('content')
 
 <div class="container">
-    PAYMENT DETAIL
+    PROMOTION PAGE
 </div>
 
 @endsection
