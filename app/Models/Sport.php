@@ -10,5 +10,4 @@ class Sport extends Model
     use HasFactory;
     protected $table = 'sport';
     protected $primaryKey = 'id';
-
 }

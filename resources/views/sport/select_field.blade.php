@@ -14,12 +14,6 @@
 
 <div class="container-fluid px-5 py-4">
 
-    <div class="row">
-        <div class="col-md-3">
-            <input type="date" class="form-control" name="txtDate">
-        </div>
-    </div>
-
     @foreach($fieldList as $key => $value)
         <div class="row justify-content-start bg-secondary bg-opacity-25 rounded shadow-sm py-4 my-3">
             <div class="col-md-4 px-5">
