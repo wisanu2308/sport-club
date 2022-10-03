@@ -14,27 +14,35 @@ class AdminController extends Controller
     public function view() {
 
 
-        $pageElement = array(
+        $pageElements = array(
             
         );
-        return view('admin/user.index', $pageElement);
+        return view('admin/user.index', $pageElements);
     }
 
     public function detail() {
 
         
-        $pageElement = array(
+        $pageElements = array(
             
         );
-        return view('admin/user.detail', $pageElement);
+        return view('admin/user.detail', $pageElements);
     }
 
-    public function form() {
+    public function add() {
 
-        $pageElement = array(
+        $pageElements = array(
             
         );
-        return view('admin/user.form', $pageElement);
+        return view('admin/user.form', $pageElements);
+    }
+
+    public function edit() {
+
+        $pageElements = array(
+            
+        );
+        return view('admin/user.form', $pageElements);
     }
 
     public function save() {

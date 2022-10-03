@@ -4,46 +4,6 @@
 
 @section('content')
 
-<?php 
-    $serviceList = array(
-        [
-            'url' => 'soccer',
-            'image' => 'images/sport/soccer.png',
-            'name' => 'ฟุตบอล'
-        ],
-        [
-            'url' => 'futsal',
-            'image' => 'images/sport/futsal.png',
-            'name' => 'ฟุตซอล'
-        ],
-        [
-            'url' => 'badminton',
-            'image' => 'images/sport/badminton.png',
-            'name' => 'แบตมินตัน'
-        ],
-        [
-            'url' => 'volleyball',
-            'image' => 'images/sport/volleyball.png',
-            'name' => 'วอลเล่บอล'
-        ],
-        [
-            'url' => 'table_tennis',
-            'image' => 'images/sport/table_tennis.png',
-            'name' => 'เทเบิลเทนนิส'
-        ],
-        [
-            'url' => 'basketball',
-            'image' => 'images/sport/basketball.png',
-            'name' => 'บาสเกตบอล'
-        ],
-        [
-            'url' => 'tennis',
-            'image' => 'tennis.png',
-            'name' => 'เทนนิส'
-        ],
-    );
-?>
-
 <div class="container-fluid">
     <div class="d-flex flex-row">
         <div class="col-md-3 bg-warning text-center fw-bold fs-1 text-dark py-2">
@@ -54,7 +14,7 @@
 
 <div class="container">
     <div class="row justify-content-start py-5">
-        @foreach($serviceList as $key => $value)
+        @foreach($sportList as $key => $value)
             <div class="col-md-3 p-4">
                 <a href="{{ url('/sport/'.$value['url']) }}" class="service-card d-flex flex-column justify-content-center justify-items-center p-3">
                     <div style="max-height: 240px; overflow:hidden;" class="rounded">

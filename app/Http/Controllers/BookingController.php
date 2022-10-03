@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Booking;
+
 
 class BookingController extends Controller
 {
@@ -27,12 +29,12 @@ class BookingController extends Controller
                 "name" => "NAME3"
             ],
         ];
-        $pageElement = array(
+        $pageElements = array(
             'memberid' => $memberid,
             'dbBooking' => $dbBooking,
         );
 
-        return view('mybooking.index', $pageElement);
+        return view('mybooking.index', $pageElements);
     }
 
     public function my_booking_detail($id){
@@ -47,12 +49,12 @@ class BookingController extends Controller
             ]
         ];
 
-        $pageElement = array(
+        $pageElements = array(
             'memberid' => $memberid,
             'dbBooking' => $dbBooking,
         );
         
-        return view('mybooking.detail', $pageElement);
+        return view('mybooking.detail', $pageElements);
     }
 
 
@@ -60,30 +62,42 @@ class BookingController extends Controller
     public function view() {
 
 
-        $pageElement = array(
-            
+        $bookingList = Booking::get();
+        
+        $pageElements = array(
+            'bookingList' => $bookingList
         );
-        return view('admin/booking.index', $pageElement);
+
+
+        return view('admin/booking.index', $pageElements);
     }
 
     public function detail() {
 
         
-        $pageElement = array(
+        $pageElements = array(
             
         );
-        return view('admin/booking.detail', $pageElement);
+        return view('admin/booking.detail', $pageElements);
     }
 
-    public function form() {
+    public function add() {
 
-        $pageElement = array(
+        $pageElements = array(
             
         );
-        return view('admin/booking.form', $pageElement);
+        return view('admin/booking.form', $pageElements);
     }
 
-    public function save() {
+    public function edit() {
+
+        $pageElements = array(
+            
+        );
+        return view('admin/booking.form', $pageElements);
+    }
+
+    public function save(Request $request) {
         
         return redirect("/admin/booking");
     }

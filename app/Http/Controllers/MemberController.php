@@ -45,27 +45,35 @@ class MemberController extends Controller
     public function view() {
 
 
-        $pageElement = array(
+        $pageElements = array(
             
         );
-        return view('admin/member.index', $pageElement);
+        return view('admin/member.index', $pageElements);
     }
 
     public function detail() {
 
         
-        $pageElement = array(
+        $pageElements = array(
             
         );
-        return view('admin/member.detail', $pageElement);
+        return view('admin/member.detail', $pageElements);
     }
 
-    public function form() {
+    public function add() {
 
-        $pageElement = array(
+        $pageElements = array(
             
         );
-        return view('admin/member.form', $pageElement);
+        return view('admin/member.form', $pageElements);
+    }
+
+    public function edit() {
+
+        $pageElements = array(
+            
+        );
+        return view('admin/member.form', $pageElements);
     }
 
     public function save() {
