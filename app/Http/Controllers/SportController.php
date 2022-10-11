@@ -130,18 +130,40 @@ class SportController extends Controller
 
     public function add() {
 
+        $formData = [
+            'refId'=> "",
+            'frmSportName' => "",
+            'frmSportURL' => "",
+            'frmSportImage' => "",
+            'frmIsEnabled' => "",
+        ];
+
         $pageElements = array(
-            
+            'form_title' => 'เพิ่มรายการกีฬา',
+            'formData' => $formData,
         );
 
         return view('admin/sport.form', $pageElements);
     }
 
-    public function edit() {
+    public function edit($id) {
+
+        $dbSport = Sport::where('id', $id)->first();
+
+        $formData = [
+            'refId'=> $dbSport->id,
+            'frmSportName' => $dbSport->name,
+            'frmSportURL' => $dbSport->url,
+            'frmSportImage' => $dbSport->image,
+            'frmIsEnabled' => $dbSport->is_enabled,
+        ];
 
         $pageElements = array(
-            
+            'form_title' => 'เพิ่มรายการกีฬา',
+            'dbSport' => $dbSport,
+            'formData' => $formData,
         );
+
         return view('admin/sport.form', $pageElements);
     }
     
@@ -150,6 +172,10 @@ class SportController extends Controller
         $post = $request->all();
         
         $data = new Sport;
+        if($post["refId"] !== "" && $post["refId"] !== null){
+            $data = Sport::find($post["refId"]);
+        }
+
         $data->name = $post["txtSportName"];
         $data->url = $post["txtSportURL"];
         $data->image = $post["txtSportImage"];
@@ -164,8 +190,8 @@ class SportController extends Controller
         return redirect("/admin/sport");
     }
 
-    public function delete() {
-        
+    public function delete($id) {
+        Sport::where('id', $id)->delete();
         return redirect("/admin/sport");
     }
 }

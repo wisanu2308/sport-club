@@ -3,7 +3,9 @@
 @section('content')
 
 <div class="container">
-  ADMIN
+  <div>
+    DASHBOARD
+  </div>
 </div>
 
 @endsection

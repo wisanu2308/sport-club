@@ -36,8 +36,15 @@
             <td>{{$value->url}}</td>
             <td>{{$value->image}}</td>
             <td>
-              <a href="{{url('/admin/sport/'.$value->id.'/edit')}}"></a>
-              <a href="{{url('/admin/sport/'.$value->id.'/delete')}}"></a>
+              <a href="{{url('/admin/sport/'.$value->id.'/detail')}}">
+                <button class="btn btn-sm btn-info text-white">ดูข้อมูล</button>
+              </a>
+              <a href="{{url('/admin/sport/'.$value->id.'/edit')}}">
+                <button class="btn btn-sm btn-primary">แก้ไข</button>
+              </a>
+              <a href="{{url('/admin/sport/'.$value->id.'/delete')}}">
+                <button class="btn btn-sm btn-danger" onclick="return confirm('ต้องการลบรายการ?')">ลบ</button>
+              </a>
             </td>
           </tr>
           <?php $index++; ?>

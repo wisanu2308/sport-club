@@ -60,32 +60,32 @@ Route::get('/admin', [AdminController::class, 'index']);
 
 // ADMIN BOOKING LIST
 Route::get('/admin/booking', [BookingController::class, 'view']);
-Route::get('/admin/booking/{id}', [BookingController::class, 'detail']);
 Route::get('/admin/booking/add', [BookingController::class, 'add']);
+Route::post('/admin/booking/save', [BookingController::class, 'save']);
+Route::get('/admin/booking/{id}', [BookingController::class, 'detail']);
 Route::get('/admin/booking/{id}/edit', [BookingController::class, 'edit']);
-Route::post('/admin/booking/{id}/save', [BookingController::class, 'save']);
 Route::get('/admin/booking/{id}/delete', [BookingController::class, 'delete']);
 
 // ADMIN SPORT TYPE LIST
 Route::get('/admin/sport', [SportController::class, 'view']);
 Route::get('/admin/sport/add', [SportController::class, 'add']);
+Route::post('/admin/sport/save', [SportController::class, 'save']);
 Route::get('/admin/sport/{id}', [SportController::class, 'detail']);
 Route::get('/admin/sport/{id}/edit', [SportController::class, 'edit']);
-Route::post('/admin/sport/save', [SportController::class, 'save']);
 Route::get('/admin/sport/{id}/delete', [SportController::class, 'delete']);
 
 // ADMIN MEMEBER LIST
 Route::get('/admin/member', [MemberController::class, 'view']);
-Route::get('/admin/member/{id}', [MemberController::class, 'detail']);
 Route::get('/admin/member/add', [MemberController::class, 'add']);
+Route::post('/admin/member/save', [MemberController::class, 'save']);
+Route::get('/admin/member/{id}', [MemberController::class, 'detail']);
 Route::get('/admin/member/{id}/edit', [MemberController::class, 'edit']);
-Route::post('/admin/member/{id}/save', [MemberController::class, 'save']);
 Route::get('/admin/member/{id}/delete', [MemberController::class, 'delete']);
 
-// ADMIN MEMEBER LIST
+// ADMIN USER LIST
 Route::get('/admin/user', [AdminController::class, 'view']);
-Route::get('/admin/user/{id}', [AdminController::class, 'detail']);
 Route::get('/admin/user/add', [AdminController::class, 'add']);
+Route::post('/admin/user/save', [AdminController::class, 'save']);
+Route::get('/admin/user/{id}', [AdminController::class, 'detail']);
 Route::get('/admin/user/{id}/edit', [AdminController::class, 'edit']);
-Route::post('/admin/user/{id}/save', [AdminController::class, 'save']);
 Route::get('/admin/user/{id}/delete', [AdminController::class, 'delete']);
