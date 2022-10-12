@@ -21,13 +21,23 @@
                 <tr>
                     <td>#</td>
                     <td>Booking ID</td>
+                    <td>Sport Name</td>
+                    <td>Sport Field</td>
+                    <td>Booking Date</td>
+                    <td>Booking Time</td>
+                    <td>Total Price</td>
                     <td>Action</td>
                 </tr>
                 <?php $index = 1 ?>
                 @foreach($dbBooking as $key => $value)
                     <tr>
                         <td>{{$index}}</td>
-                        <td>{{$value["name"]}}</td>
+                        <td>{{$value["booking_no"]}}</td>
+                        <td>{{$value["sport_name"]}}</td>
+                        <td>{{$value["sport_field"]}}</td>
+                        <td>{{date("d/m/Y", strtotime($value["booking_date"]))}}</td>
+                        <td>{{$value["booking_time"]}}</td>
+                        <td>{{$value["total_price"]}}</td>
                         <td>
                             <a href="{{url('/mybooking/'.$value['id'])}}" class="btn btn-sm btn-info text-white">รายละเอียด</a>
                         </td>

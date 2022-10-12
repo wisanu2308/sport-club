@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Booking;
+use App\Models\BookingAddon;
 
 
 class BookingController extends Controller
@@ -11,24 +12,11 @@ class BookingController extends Controller
 
     public function my_booking(){
 
-        $memberid = 1;
+        $memberid = session("userid");
 
         // fetch Booking data
+        $dbBooking = Booking::where('member_id', $memberid)->get();
 
-        $dbBooking = [
-            [
-                "id" => 1,
-                "name" => "NAME1"
-            ],
-            [
-                "id" => 2,
-                "name" => "NAME2"
-            ],
-            [
-                "id" => 3,
-                "name" => "NAME3"
-            ],
-        ];
         $pageElements = array(
             'memberid' => $memberid,
             'dbBooking' => $dbBooking,
@@ -39,19 +27,13 @@ class BookingController extends Controller
 
     public function my_booking_detail($id){
 
-        $memberid = 1;
-        
         // fetch Booking data
-        $dbBooking = [
-            [
-                "id" => 1,
-                "name" => "NAME1"
-            ]
-        ];
+        $dbBooking = Booking::where('id', $id)->first();
+        $dbBookingAddon = BookingAddon::where('booking_no', $dbBooking->booking_no)->get();
 
         $pageElements = array(
-            'memberid' => $memberid,
             'dbBooking' => $dbBooking,
+            'dbBookingAddon' => $dbBookingAddon,
         );
         
         return view('mybooking.detail', $pageElements);

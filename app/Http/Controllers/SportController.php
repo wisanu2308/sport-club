@@ -6,48 +6,51 @@ use Illuminate\Http\Request;
 use App\Models\Sport;
 use App\Models\SportField;
 use App\Models\SportAddon;
+use App\Models\Booking;
+use App\Models\BookingAddon;
 
 class SportController extends Controller
 {
     public function index(){
 
-        $sportList = array(
-            [
-                'url' => 'soccer',
-                'image' => 'images/sport/soccer.png',
-                'name' => 'ฟุตบอล'
-            ],
-            [
-                'url' => 'futsal',
-                'image' => 'images/sport/futsal.png',
-                'name' => 'ฟุตซอล'
-            ],
-            [
-                'url' => 'badminton',
-                'image' => 'images/sport/badminton.png',
-                'name' => 'แบตมินตัน'
-            ],
-            [
-                'url' => 'volleyball',
-                'image' => 'images/sport/volleyball.png',
-                'name' => 'วอลเล่บอล'
-            ],
-            [
-                'url' => 'table_tennis',
-                'image' => 'images/sport/table_tennis.png',
-                'name' => 'เทเบิลเทนนิส'
-            ],
-            [
-                'url' => 'basketball',
-                'image' => 'images/sport/basketball.png',
-                'name' => 'บาสเกตบอล'
-            ],
-            [
-                'url' => 'tennis',
-                'image' => 'tennis.png',
-                'name' => 'เทนนิส'
-            ],
-        );        
+        // $sportList = array(
+        //     [
+        //         'url' => 'soccer',
+        //         'image' => 'images/sport/soccer.png',
+        //         'name' => 'ฟุตบอล'
+        //     ],
+        //     [
+        //         'url' => 'futsal',
+        //         'image' => 'images/sport/futsal.png',
+        //         'name' => 'ฟุตซอล'
+        //     ],
+        //     [
+        //         'url' => 'badminton',
+        //         'image' => 'images/sport/badminton.png',
+        //         'name' => 'แบตมินตัน'
+        //     ],
+        //     [
+        //         'url' => 'volleyball',
+        //         'image' => 'images/sport/volleyball.png',
+        //         'name' => 'วอลเล่บอล'
+        //     ],
+        //     [
+        //         'url' => 'table_tennis',
+        //         'image' => 'images/sport/table_tennis.png',
+        //         'name' => 'เทเบิลเทนนิส'
+        //     ],
+        //     [
+        //         'url' => 'basketball',
+        //         'image' => 'images/sport/basketball.png',
+        //         'name' => 'บาสเกตบอล'
+        //     ],
+        //     [
+        //         'url' => 'tennis',
+        //         'image' => 'tennis.png',
+        //         'name' => 'เทนนิส'
+        //     ],
+        // );       
+        $sportList = Sport::where('is_enabled', 'Y')->get();
 
         $pageElements = array(
             "sportList" => $sportList,
@@ -59,44 +62,108 @@ class SportController extends Controller
     public function sport_field($type){
 
         // Fetching Data From Type
-        $fieldList = array(
-            [
-                "NAME_OF_PLACE" => "FIELD_1",
-                "IMAGE" => "images/sport/field_basketball.png",
-            ],
-            [
-                "NAME_OF_PLACE" => "FIELD_2",
-                "IMAGE" => "images/sport/field_basketball.png",
-            ],
-            [
-                "NAME_OF_PLACE" => "FIELD_3",
-                "IMAGE" => "images/sport/field_basketball.png",
-            ],
-        );
+        // $fieldList = array(
+        //     [
+        //         "NAME_OF_PLACE" => "FIELD_1",
+        //         "IMAGE" => "images/sport/field_soccer.png",
+        //     ],
+        //     [
+        //         "NAME_OF_PLACE" => "FIELD_2",
+        //         "IMAGE" => "images/sport/field_soccer.png",
+        //     ],
+        //     [
+        //         "NAME_OF_PLACE" => "FIELD_3",
+        //         "IMAGE" => "images/sport/field_soccer.png",
+        //     ],
+        // );
+        $dbSport = Sport::where('url', $type)->first();
+        $fieldList = SportField::where('sport_url', $type)->where('is_enabled', 'Y')->get();
+        
+        session(["book_sport" => $dbSport->id]);  
 
         $pageElements = array(
             "type" => $type,
             "fieldList" => $fieldList,
-            
         );
         
         return view("sport.select_field", $pageElements);
     }
 
 
-    public function sport_form($type){
+    public function sport_form($type, $field_data){
 
+        $field_data = explode("_", $field_data);
+
+        $timeList = array(
+            ["time_id" => 1, "title" => "13.00-14.00", "is_available" => "Y"],
+            ["time_id" => 2, "title" => "14.30-15.30", "is_available" => "Y"],
+            ["time_id" => 3, "title" => "16.00-17:00", "is_available" => "Y"],
+            ["time_id" => 4, "title" => "17.30-18.30", "is_available" => "Y"],
+            ["time_id" => 5, "title" => "19.00-20:00", "is_available" => "N"],
+            ["time_id" => 6, "title" => "20:30-21:30", "is_available" => "N"],
+        );
+        $sport = Sport::where('url', $type)->first();
+        $field = SportField::where('id', $field_data[0])->first();
+        $time = $timeList[$field_data[1] - 1];
+        
+        session(["book_field" => $field->id]); 
+        session(["book_time" => $time['time_id']]); 
+
+        $dbSportAddon = SportAddon::where("sport_url", $type)->get();
+    
         $pageElements = array(
             "type" => $type,
+            "txt_book_sport" => $sport->name,
+            "txt_book_field" => $field->field_name,
+            "txt_book_time" => $time['title'],
+            "dbSportAddon" => $dbSportAddon,
         );
         
         return view("sport.form", $pageElements);
     }
 
-    public function sport_confirm($type){
+    public function sport_confirm(Request $request, $type){
+
+        $post = $request->all();
+
+        $txtSportAddon = $post["txtSportAddon"];
+        $field_id = session("book_field");
+        $time_id = session("book_time");
+        
+        $timeList = array(
+            ["time_id" => 1, "title" => "13.00-14.00", "is_available" => "Y"],
+            ["time_id" => 2, "title" => "14.30-15.30", "is_available" => "Y"],
+            ["time_id" => 3, "title" => "16.00-17:00", "is_available" => "Y"],
+            ["time_id" => 4, "title" => "17.30-18.30", "is_available" => "Y"],
+            ["time_id" => 5, "title" => "19.00-20:00", "is_available" => "N"],
+            ["time_id" => 6, "title" => "20:30-21:30", "is_available" => "N"],
+        );
+        
+        $dbSport = Sport::where('url', $type)->first();
+        $dbSportField = SportField::where('id', $field_id)->first();
+        $dbSportAddon = SportAddon::where('id', $txtSportAddon)->first();
+
+        $total_price = 0;
+        $total_price += $dbSportField->price;
+        $total_price += $dbSportAddon->price;
+
+        $formData = [
+            'txtMemberId' => session("userid"),
+            'txtMemberName' => session("username"),
+            'txtSportName' => $dbSport->name,
+            'txtSportField' => $dbSportField->field_name,
+            'txtBookingDate' => date("Y-m-d"),
+            'txtBookingTime' => $timeList[$time_id - 1]["title"],
+            'txtSportAddonId' => $dbSportAddon->id,
+            'txtSportAddonName' => $dbSportAddon->addon_name,
+            'txtTotalPrice' => $total_price,
+        ];
 
         $pageElements = array(
             "type" => $type,
+            "field_id" => $field_id,
+            "addon_id" => $txtSportAddon,
+            "formData" => $formData,
         );
         
         return view("sport.confirm", $pageElements);
@@ -104,8 +171,34 @@ class SportController extends Controller
 
     public function sport_store(Request $request){
 
-        
-        return redirect("/");
+        $post = $request->all();
+
+        $booking_no = rand(10000,99999);
+        $data = new Booking;
+        $data->booking_no = $booking_no;
+        $data->member_id = $post["txtMemberId"];
+        $data->member_name = $post["txtMemberName"];
+        $data->sport_name = $post["txtSportName"];
+        $data->sport_field = $post["txtSportField"];
+        $data->booking_date = $post["txtBookingDate"];
+        $data->booking_time = $post["txtBookingTime"];
+        $data->total_price = $post["txtTotalPrice"];
+        $data->save();
+
+        $dbSportAddon = SportAddon::where('id', $post["txtSportAddon"])->first();
+
+        $addonData = new BookingAddon;
+        $addonData->booking_no = $booking_no;
+        $addonData->addon_name = $dbSportAddon->addon_name;
+        $addonData->qty = $dbSportAddon->qty;
+        $addonData->price = $dbSportAddon->price;
+        $addonData->save();
+
+        $request->session()->forget('book_sport');
+        $request->session()->forget('book_field');
+        $request->session()->forget('book_time');
+
+        return redirect("/mybooking");
     }
 
 

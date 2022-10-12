@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('booking', function (Blueprint $table) {
             $table->id();
             $table->string('booking_no');
+            $table->string('member_id');
             $table->string('member_name');
             $table->string('sport_name');
             $table->string('sport_field');

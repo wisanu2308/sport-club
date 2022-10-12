@@ -41,8 +41,8 @@ Route::get('/mybooking/{id}', [BookingController::class, 'my_booking_detail']);
 // Sport Route
 Route::get('/sport', [SportController::class, 'index']);
 Route::get('/sport/{type}', [SportController::class, 'sport_field']);
-Route::get('/sport/{type}/form', [SportController::class, 'sport_form']);
-Route::get('/sport/{type}/confirm', [SportController::class, 'sport_confirm']);
+Route::get('/sport/{type}/form/{field_data}', [SportController::class, 'sport_form']);
+Route::post('/sport/{type}/confirm', [SportController::class, 'sport_confirm']);
 Route::post('/sport/store', [SportController::class, 'sport_store']);
 
 // Promotion Route

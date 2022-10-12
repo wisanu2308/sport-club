@@ -19,7 +19,8 @@ class MemberController extends Controller
     public function do_signin(Request $request){
         $post = $request->all();
         // dd($post);
-        session(["username" => "Wisanu Kueansan"]);
+        session(["userid" => 1]);
+        session(["username" => "User Anonymous"]);
         return redirect("/");
 
     }
