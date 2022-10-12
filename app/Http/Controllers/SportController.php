@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sport;
+use App\Models\SportField;
+use App\Models\SportAddon;
 
 class SportController extends Controller
 {
@@ -119,15 +121,6 @@ class SportController extends Controller
         return view('admin/sport.index', $pageElements);
     }
 
-    public function detail() {
-
-        
-        $pageElements = array(
-            
-        );
-        return view('admin/sport.detail', $pageElements);
-    }
-
     public function add() {
 
         $formData = [
@@ -194,4 +187,59 @@ class SportController extends Controller
         Sport::where('id', $id)->delete();
         return redirect("/admin/sport");
     }
+
+    public function detail($id) {
+        
+        $dbSport = Sport::where('id', $id)->first();
+        $dbSportField = SportField::where('sport_url', $dbSport->url)->get();
+        $dbSportAddon = SportAddon::where('sport_url', $dbSport->url)->get();
+        $pageElements = array(
+            'dbSport' => $dbSport,
+            'dbSportField' => $dbSportField,
+            'dbSportAddon' => $dbSportAddon,
+        );
+        
+        return view('admin/sport.detail', $pageElements);
+    }
+
+    public function add_field(Request $request) {
+        
+        $post = $request->all();
+        
+        $data = new SportField;
+        $data->sport_url = $post["txtSportURL"];
+        $data->field_name = $post["txtFieldName"];
+        $data->image = $post["txtFieldImage"];
+        $data->price = $post["txtFieldPrice"];
+        $data->is_enabled = 'Y';
+        $data->save();
+  
+        return redirect("/admin/sport/".$post["refId"]);
+    }
+    
+    public function add_addon(Request $request) {
+        
+        $post = $request->all();
+        
+        $data = new SportAddon();
+        $data->sport_url = $post["txtSportURL"];
+        $data->addon_name = $post["txtAddonName"];
+        $data->qty = $post["txtAddonQuantity"];
+        $data->price = $post["txtAddonPrice"];
+        $data->is_enabled = 'Y';
+        $data->save();
+  
+        return redirect("/admin/sport/".$post["refId"]);
+    }
+
+    public function delete_field($id, $field_id) {
+        SportField::where('id', $field_id)->delete();
+        return redirect("/admin/sport/".$id);
+    }
+
+    public function delete_addon($id, $addon_id) {
+        SportAddon::where('id', $addon_id)->delete();
+        return redirect("/admin/sport/".$id);
+    }
+
 }

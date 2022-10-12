@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('sport_addon', function (Blueprint $table) {
             $table->id();
-            $table->string('add on_name');
+            $table->string('sport_url');
+            $table->string('addon_name');
             $table->integer('qty');
             $table->double('price');
+            $table->string('is_enabled');
             $table->timestamps();
         });
     }

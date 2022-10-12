@@ -36,14 +36,14 @@
             <td>{{$value->url}}</td>
             <td>{{$value->image}}</td>
             <td>
-              <a href="{{url('/admin/sport/'.$value->id.'/detail')}}">
-                <button class="btn btn-sm btn-info text-white">ดูข้อมูล</button>
+              <a href="{{url('/admin/sport/'.$value->id)}}" class="btn btn-sm btn-info text-white">
+                ดูข้อมูล
               </a>
-              <a href="{{url('/admin/sport/'.$value->id.'/edit')}}">
-                <button class="btn btn-sm btn-primary">แก้ไข</button>
+              <a href="{{url('/admin/sport/'.$value->id.'/edit')}}" class="btn btn-sm btn-primary">
+                แก้ไข
               </a>
-              <a href="{{url('/admin/sport/'.$value->id.'/delete')}}">
-                <button class="btn btn-sm btn-danger" onclick="return confirm('ต้องการลบรายการ?')">ลบ</button>
+              <a href="{{url('/admin/sport/'.$value->id.'/delete')}}" class="btn btn-sm btn-danger" onclick="return confirm('ต้องการลบรายการ?')">
+                ลบ
               </a>
             </td>
           </tr>

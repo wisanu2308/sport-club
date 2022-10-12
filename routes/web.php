@@ -73,6 +73,10 @@ Route::post('/admin/sport/save', [SportController::class, 'save']);
 Route::get('/admin/sport/{id}', [SportController::class, 'detail']);
 Route::get('/admin/sport/{id}/edit', [SportController::class, 'edit']);
 Route::get('/admin/sport/{id}/delete', [SportController::class, 'delete']);
+Route::post('/admin/sport/{id}/add_field', [SportController::class, 'add_field']);
+Route::post('/admin/sport/{id}/add_addon', [SportController::class, 'add_addon']);
+Route::get('/admin/sport/{id}/delete_field/{field_id}', [SportController::class, 'delete_field']);
+Route::get('/admin/sport/{id}/delete_addon/{addon_id}', [SportController::class, 'delete_addon']);
 
 // ADMIN MEMEBER LIST
 Route::get('/admin/member', [MemberController::class, 'view']);

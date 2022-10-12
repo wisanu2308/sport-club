@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('sport_field', function (Blueprint $table) {
             $table->id();
+            $table->string('sport_url');
             $table->string('field_name');
             $table->string('image');
             $table->double('price');

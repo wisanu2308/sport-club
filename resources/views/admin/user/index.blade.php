@@ -34,11 +34,11 @@
             <td>{{$value->username}}</td>
             <td>{{$value->role}}</td>
             <td>
-              <a href="{{url('/admin/user/'.$value->id.'/edit')}}">
-                <button class="btn btn-sm btn-primary">แก้ไข</button>
+              <a href="{{url('/admin/user/'.$value->id.'/edit')}}" class="btn btn-sm btn-primary">
+                แก้ไข
               </a>
-              <a href="{{url('/admin/user/'.$value->id.'/delete')}}">
-                <button class="btn btn-sm btn-danger" onclick="return confirm('ต้องการลบรายการ?')">ลบ</button>
+              <a href="{{url('/admin/user/'.$value->id.'/delete')}}" class="btn btn-sm btn-danger" onclick="return confirm('ต้องการลบรายการ?')">
+                ลบ
               </a>
             </td>
           </tr>
