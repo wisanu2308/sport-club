@@ -41,24 +41,25 @@
 
     <div class="row py-2">
       <div class="col-md-2">
-        <label>Firstame</label>
+        <label>ชื่อ</label>
         <input type="text" class="form-control" name="txtFirstName" value="{{ $formData['frmFirstName'] }}">
       </div>
       <div class="col-md-2">
-        <label>Lastname</label>
+        <label>นามสกุล</label>
         <input type="text" class="form-control" name="txtLastName" value="{{ $formData['frmLastName'] }}">
       </div>
     </div>
 
     <div class="row py-2">
       <div class="col-md-4">
-        <label>Tel</label>
+        <label>เบอร์โทร</label>
         <input type="text" class="form-control" name="txTel" value="{{ $formData['frmTel'] }}">
       </div>
     </div>
 
     <div class="row py-2">
       <div class="col-md-4">
+        <a href="{{url('/admin/member')}}" class="btn btn-lg btn-secondary">กลับ</a>
         <button class="btn btn-lg btn-primary">บันทึก</button>
       </div>
     </div>

@@ -34,6 +34,7 @@
     
     <div class="row py-2">
       <div class="col-md-4">
+        <a href="{{url('/admin/user')}}" class="btn btn-lg btn-secondary">กลับ</a>
         <button class="btn btn-lg btn-primary">บันทึก</button>
       </div>
     </div>

@@ -54,11 +54,14 @@ class BookingController extends Controller
         return view('admin/booking.index', $pageElements);
     }
 
-    public function detail() {
+    public function detail($id) {
 
-        
+        $dbBooking = Booking::where("id", $id)->first();
+        $dbBookingAddon = BookingAddon::where('booking_no', $dbBooking->booking_no)->get();
+
         $pageElements = array(
-            
+            "dbBooking" => $dbBooking,
+            "dbBookingAddon" => $dbBookingAddon,
         );
         return view('admin/booking.detail', $pageElements);
     }

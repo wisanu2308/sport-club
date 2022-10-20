@@ -50,7 +50,6 @@
     </div>
 
 
-
     <form action="{{url('/sport/store')}}" method="post">
         
         @csrf

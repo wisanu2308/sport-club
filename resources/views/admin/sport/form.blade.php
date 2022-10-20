@@ -10,7 +10,7 @@
       </div>
   </div>
 
-  <form action="{{url('/admin/sport/save')}}" method="post">
+  <form action="{{url('/admin/sport/save')}}" method="post" enctype="multipart/form-data">
 
     @csrf
 
@@ -33,7 +33,7 @@
     <div class="row py-2">
       <div class="col-md-4">
         <label>รูปภาพ</label>
-        <input type="text" class="form-control" name="txtSportImage" value="{{ $formData['frmSportImage'] }}">
+        <input type="file" class="form-control" name="txtSportImage" value="{{ $formData['frmSportImage'] }}">
       </div>
     </div>
 
@@ -51,6 +51,7 @@
 
     <div class="row py-2">
       <div class="col-md-4">
+        <a href="{{url('/admin/sport')}}" class="btn btn-lg btn-secondary">กลับ</a>
         <button class="btn btn-lg btn-primary">บันทึก</button>
       </div>
     </div>

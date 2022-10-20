@@ -39,18 +39,26 @@
 
     <div class="container py-4">
       <div class="row">
-        <div class="col-lg-2 text-center">
-          
-          <div class="list-group">
-            @foreach($menuList as $key => $value)
-              <a href="{{ url($value['url']) }}" class="list-group-item list-group-item-action">{{ $value['name'] }}</a>
-            @endforeach
+        @if(session('adm_username') == null)
+          <div class="col-lg-12 p-4 bg-white">
+            @yield('content')
           </div>
+        @else
+          <div class="col-lg-2 text-center">
+            
+            <div class="list-group">
+              @foreach($menuList as $key => $value)
+                <a href="{{ url($value['url']) }}" class="list-group-item list-group-item-action">{{ $value['name'] }}</a>
+              @endforeach
+              <a href="{{ url('admin/signout') }}" class="list-group-item list-group-item-action text-danger">ออกจากระบบ</a>
+            </div>
 
-        </div>
-        <div class="col-lg-10 p-4 bg-white">
-          @yield('content')
-        </div>
+          </div>
+          <div class="col-lg-10 p-4 bg-white">
+            @yield('content')
+          </div>
+        @endif
+
       </div>
     </div>
 

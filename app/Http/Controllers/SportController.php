@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Sport;
 use App\Models\SportField;
 use App\Models\SportAddon;
@@ -11,71 +13,20 @@ use App\Models\BookingAddon;
 
 class SportController extends Controller
 {
-    public function index(){
-
-        // $sportList = array(
-        //     [
-        //         'url' => 'soccer',
-        //         'image' => 'images/sport/soccer.png',
-        //         'name' => 'ฟุตบอล'
-        //     ],
-        //     [
-        //         'url' => 'futsal',
-        //         'image' => 'images/sport/futsal.png',
-        //         'name' => 'ฟุตซอล'
-        //     ],
-        //     [
-        //         'url' => 'badminton',
-        //         'image' => 'images/sport/badminton.png',
-        //         'name' => 'แบตมินตัน'
-        //     ],
-        //     [
-        //         'url' => 'volleyball',
-        //         'image' => 'images/sport/volleyball.png',
-        //         'name' => 'วอลเล่บอล'
-        //     ],
-        //     [
-        //         'url' => 'table_tennis',
-        //         'image' => 'images/sport/table_tennis.png',
-        //         'name' => 'เทเบิลเทนนิส'
-        //     ],
-        //     [
-        //         'url' => 'basketball',
-        //         'image' => 'images/sport/basketball.png',
-        //         'name' => 'บาสเกตบอล'
-        //     ],
-        //     [
-        //         'url' => 'tennis',
-        //         'image' => 'tennis.png',
-        //         'name' => 'เทนนิส'
-        //     ],
-        // );       
+    public function index(){     
         $sportList = Sport::where('is_enabled', 'Y')->get();
-
         $pageElements = array(
             "sportList" => $sportList,
         );
-
         return view("sport.index", $pageElements);
     }
 
     public function sport_field($type){
 
-        // Fetching Data From Type
-        // $fieldList = array(
-        //     [
-        //         "NAME_OF_PLACE" => "FIELD_1",
-        //         "IMAGE" => "images/sport/field_soccer.png",
-        //     ],
-        //     [
-        //         "NAME_OF_PLACE" => "FIELD_2",
-        //         "IMAGE" => "images/sport/field_soccer.png",
-        //     ],
-        //     [
-        //         "NAME_OF_PLACE" => "FIELD_3",
-        //         "IMAGE" => "images/sport/field_soccer.png",
-        //     ],
-        // );
+        if(session('username') == null) {
+            return redirect('/signin');
+        }
+
         $dbSport = Sport::where('url', $type)->first();
         $fieldList = SportField::where('sport_url', $type)->where('is_enabled', 'Y')->get();
         
@@ -126,7 +77,7 @@ class SportController extends Controller
 
         $post = $request->all();
 
-        $txtSportAddon = $post["txtSportAddon"];
+        $txtSportAddon = isset($post["txtSportAddon"]) ? $post["txtSportAddon"] : "";
         $field_id = session("book_field");
         $time_id = session("book_time");
         
@@ -141,11 +92,14 @@ class SportController extends Controller
         
         $dbSport = Sport::where('url', $type)->first();
         $dbSportField = SportField::where('id', $field_id)->first();
-        $dbSportAddon = SportAddon::where('id', $txtSportAddon)->first();
-
+        
         $total_price = 0;
         $total_price += $dbSportField->price;
-        $total_price += $dbSportAddon->price;
+        
+        if($txtSportAddon !== ""){
+            $dbSportAddon = SportAddon::where('id', $txtSportAddon)->first();
+            $total_price += $dbSportAddon->price;
+        }
 
         $formData = [
             'txtMemberId' => session("userid"),
@@ -154,8 +108,8 @@ class SportController extends Controller
             'txtSportField' => $dbSportField->field_name,
             'txtBookingDate' => date("Y-m-d"),
             'txtBookingTime' => $timeList[$time_id - 1]["title"],
-            'txtSportAddonId' => $dbSportAddon->id,
-            'txtSportAddonName' => $dbSportAddon->addon_name,
+            'txtSportAddonId' => isset($dbSportAddon->id) ? $dbSportAddon->id : "",
+            'txtSportAddonName' => isset($dbSportAddon->addon_name) ? $dbSportAddon->addon_name : "",
             'txtTotalPrice' => $total_price,
         ];
 
@@ -172,6 +126,7 @@ class SportController extends Controller
     public function sport_store(Request $request){
 
         $post = $request->all();
+        $txtSportAddon = isset($post["txtSportAddon"]) ? $post["txtSportAddon"] : "";
 
         $booking_no = rand(10000,99999);
         $data = new Booking;
@@ -185,14 +140,15 @@ class SportController extends Controller
         $data->total_price = $post["txtTotalPrice"];
         $data->save();
 
-        $dbSportAddon = SportAddon::where('id', $post["txtSportAddon"])->first();
-
-        $addonData = new BookingAddon;
-        $addonData->booking_no = $booking_no;
-        $addonData->addon_name = $dbSportAddon->addon_name;
-        $addonData->qty = $dbSportAddon->qty;
-        $addonData->price = $dbSportAddon->price;
-        $addonData->save();
+        if($txtSportAddon !== "" && $txtSportAddon !== null){
+            $dbSportAddon = SportAddon::where('id', $txtSportAddon)->first();
+            $addonData = new BookingAddon;
+            $addonData->booking_no = $booking_no;
+            $addonData->addon_name = $dbSportAddon->addon_name;
+            $addonData->qty = $dbSportAddon->qty;
+            $addonData->price = $dbSportAddon->price;
+            $addonData->save();
+        }
 
         $request->session()->forget('book_sport');
         $request->session()->forget('book_field');
@@ -257,6 +213,11 @@ class SportController extends Controller
         
         $post = $request->all();
         
+        // Store Image 
+        $file = $request->file('txtSportImage');
+        $imageName = date("Ymd")."_".$post["txtSportURL"].'.'.$file->getClientOriginalExtension();
+        $file->move(public_path('/images/sports'), $imageName);
+
         $data = new Sport;
         if($post["refId"] !== "" && $post["refId"] !== null){
             $data = Sport::find($post["refId"]);
@@ -264,20 +225,19 @@ class SportController extends Controller
 
         $data->name = $post["txtSportName"];
         $data->url = $post["txtSportURL"];
-        $data->image = $post["txtSportImage"];
+        $data->image = $imageName;
         $data->is_enabled = $post["txtIsEnabled"];
         $data->save();
-        
-        // $image= $request->file('feature_image');
-        // $image_path = Image::make($image);
-        // $set_img_path = time().$image->getClientOriginalName();
-        // $image_path->save( public_path().'/images/course/'.$set_img_path);
 
         return redirect("/admin/sport");
     }
 
     public function delete($id) {
+
+        $dbSport = Sport::where('id', $id)->first();
         Sport::where('id', $id)->delete();
+        SportField::where('sport_url', $dbSport->url)->delete();
+        SportAddon::where('sport_url', $dbSport->url)->delete();
         return redirect("/admin/sport");
     }
 
@@ -298,11 +258,16 @@ class SportController extends Controller
     public function add_field(Request $request) {
         
         $post = $request->all();
-        
+
+        // Store Image 
+        $file = $request->file('txtFieldImage');
+        $imageName = date("Ymd").rand(10000,99999)."_".$post["txtSportURL"].'.'.$file->getClientOriginalExtension();
+        $file->move(public_path('/images/sports/fields'), $imageName);
+
         $data = new SportField;
         $data->sport_url = $post["txtSportURL"];
         $data->field_name = $post["txtFieldName"];
-        $data->image = $post["txtFieldImage"];
+        $data->image = $imageName;
         $data->price = $post["txtFieldPrice"];
         $data->is_enabled = 'Y';
         $data->save();

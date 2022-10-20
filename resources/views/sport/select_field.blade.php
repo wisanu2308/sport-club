@@ -21,7 +21,7 @@
                     <div class="text-center fs-3 fw-bold">{{$value["field_name"]}}</div>
                     <div class="rounded">
                         <!-- <img src="{{ asset($value['IMAGE']) }}" class="img-fluid"> -->
-                        <img src="{{ asset('images/sport/field_soccer.png') }}" class="img-fluid">
+                        <img src="{{ asset('images/sports/fields/'.$value['image']) }}" class="img-fluid">
                     </div>
                 </div>
             </div>

@@ -57,6 +57,10 @@ Route::get('/contact', [ContactController::class, 'index']);
 //////////////////////////////////////
 
 Route::get('/admin', [AdminController::class, 'index']);
+Route::get('/admin/signin', [AdminController::class, 'signin']);
+Route::post('/admin/do_signin', [AdminController::class, 'do_signin']);
+Route::get('/admin/signout', [AdminController::class, 'do_signout']);
+
 
 // ADMIN BOOKING LIST
 Route::get('/admin/booking', [BookingController::class, 'view']);

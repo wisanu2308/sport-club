@@ -19,7 +19,7 @@
                 <a href="{{ url('/sport/'.$value['url']) }}" class="service-card d-flex flex-column justify-content-center justify-items-center p-3">
                     <div style="max-height: 240px; overflow:hidden;" class="rounded">
                         <!-- <img src="{{ asset($value['image']) }}" class="img-fluid"> -->
-                        <img src="{{ asset('images/sport/soccer.png') }}" class="img-fluid">
+                        <img src="{{ asset('images/sports/'.$value['image']) }}" class="img-fluid">
                     </div>
                     <div class="fw-bold fs-4 text-center">{{ $value['name'] }}</div>
                 </a>

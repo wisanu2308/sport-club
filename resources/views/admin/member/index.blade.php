@@ -22,21 +22,21 @@
     <div class="col-md">
       <table class="table table-bordered table-hover">
         <tr>
-          <td class="bg-secondary text-light">No</td>
-          <td class="bg-secondary text-light">Username</td>
-          <td class="bg-secondary text-light">Email</td>
-          <td class="bg-secondary text-light">Member Name</td>
-          <td class="bg-secondary text-light">Tel</td>
-          <td class="bg-secondary text-light">Action</td>
+          <td class="bg-secondary text-light text-center">No</td>
+          <td class="bg-secondary text-light text-center">Username</td>
+          <td class="bg-secondary text-light text-center">Email</td>
+          <td class="bg-secondary text-light text-center">ชื่อ</td>
+          <td class="bg-secondary text-light text-center">เบอร์โทร</td>
+          <td class="bg-secondary text-light text-center">คำสั่ง</td>
         </tr>
         <?php $index = 1; ?>
         @foreach($memberList as $key => $value)
           <tr>
-            <td>{{$index}}</td>
-            <td>{{$value->username}}</td>
-            <td>{{$value->email}}</td>
-            <td>{{$value->firstname." ".$value->lastname}}</td>
-            <td>{{$value->tel}}</td>
+            <td class="text-center">{{$index}}</td>
+            <td class="text-center">{{$value->username}}</td>
+            <td class="text-center">{{$value->email}}</td>
+            <td class="text-center">{{$value->firstname." ".$value->lastname}}</td>
+            <td class="text-center">{{$value->tel}}</td>
             <td class="text-center">
               <a href="{{url('/admin/member/'.$value->id.'/edit')}}" class="btn btn-sm btn-primary">
                 แก้ไข

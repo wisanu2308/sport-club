@@ -18,15 +18,58 @@ class MemberController extends Controller
 
     public function do_signin(Request $request){
         $post = $request->all();
-        // dd($post);
-        session(["userid" => 1]);
-        session(["username" => "User Anonymous"]);
-        return redirect("/");
+
+        $txtUsername = $post["txtUsername"];
+        $txtPassword = md5($post["txtPassword"]);
+
+        $dbMember = Member::where('username', $txtUsername)->where('password', $txtPassword)->first();
+        if(!$dbMember){
+            session(["errMsg" => "รหัสผ่านไม่ถูกต้อง"]);
+            return redirect("/signin")->withInput();
+
+        } else {
+            session(["userid" => $dbMember->id]);
+            session(["username" => $dbMember->username]);
+            session(["user_fullname" => $dbMember->firstname." ".$dbMember->lastname]);
+            return redirect("/");
+        } 
 
     }
 
     public function do_signup(Request $request){
-        echo "doSignUp !!";
+        $post = $request->all();
+
+        $txtUsername = $post["txtUsername"];
+        $txtEmail = $post["txtEmail"];
+        $txtFirstName = $post["txtFirstName"];
+        $txtLastName = $post["txtLastName"];
+        $txtTel = $post["txtTel"];
+        $txtPassword = $post["txtPassword"];
+        $txtPasswordConfirm = $post["txtPasswordConfirm"];
+        
+        if($txtPassword !== $txtPasswordConfirm){
+            session(["errMsg" => "รหัสผ่านไม่ถูกต้อง"]);
+            return redirect("/signup")->withInput();
+        } else {
+
+            $data = new Member;
+            $data->username = $txtUsername;
+            $data->password = md5($txtPassword);
+            $data->firstname = $txtFirstName;
+            $data->lastname = $txtLastName;
+            $data->email = $txtEmail;
+            $data->tel = $txtTel;
+            $data->save();
+
+            echo "
+                <script>
+                    alert('สมัครสมาชิกเรียบร้อย')
+                    window.location.href = '/'
+                </script>
+            ";
+            // return redirect("/");
+        }
+
     }
 
     public function do_signout(){
@@ -35,11 +78,21 @@ class MemberController extends Controller
     }
 
     public function profile(){
-        echo "Profile !!";
+
+        if(session('username') == null) {
+            return redirect('/signin');
+        }
+
+        return view('profile');
     }
 
     public function update_profile(){
-        echo "Update Profile !!";
+
+        if(session('username') == null) {
+            return redirect('/signin');
+        }
+
+        return view('profile');
     }
 
 

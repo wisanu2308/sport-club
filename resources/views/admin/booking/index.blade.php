@@ -14,22 +14,28 @@
     <div class="col-md">
       <table class="table table-bordered table-hover">
         <tr>
-          <td class="bg-secondary text-light">No</td>
-          <td class="bg-secondary text-light">Sport Name</td>
-          <td class="bg-secondary text-light">Sport URL</td>
-          <td class="bg-secondary text-light">Image</td>
-          <td class="bg-secondary text-light">Action</td>
+          <td class="bg-secondary text-light text-center">#</td>
+          <td class="bg-secondary text-light text-center">Booking ID</td>
+          <td class="bg-secondary text-light text-center">ชื่อกีฬา</td>
+          <td class="bg-secondary text-light text-center">สนาม</td>
+          <td class="bg-secondary text-light text-center">วันที่จอง</td>
+          <td class="bg-secondary text-light text-center">เวลาที่จอง</td>
+          <td class="bg-secondary text-light text-center">จำนวนเงิน</td>
+          <td class="bg-secondary text-light text-center">คำสั่ง</td>
+
         </tr>
         <?php $index = 1; ?>
         @foreach($bookingList as $key => $value)
           <tr>
-            <td>{{$index}}</td>
-            <td>{{$value->name}}</td>
-            <td>{{$value->url}}</td>
-            <td>{{$value->image}}</td>
-            <td>
-              <a href="{{url('/admin/sport/'.$value->id.'/edit')}}"></a>
-              <a href="{{url('/admin/sport/'.$value->id.'/delete')}}"></a>
+            <td class="text-center">{{$index}}</td>
+            <td class="text-center">{{$value["booking_no"]}}</td>
+            <td class="text-center">{{$value["sport_name"]}}</td>
+            <td class="text-center">{{$value["sport_field"]}}</td>
+            <td class="text-center">{{date("d/m/Y", strtotime($value["booking_date"]))}}</td>
+            <td class="text-center">{{$value["booking_time"]}}</td>
+            <td class="text-center">{{number_format($value["total_price"])}}</td>
+            <td class="text-center">
+              <a href="{{url('/admin/booking/'.$value->id)}}" class="btn btn-sm btn-info text-white">รายละเอียด</a>
             </td>
           </tr>
           <?php $index++; ?>

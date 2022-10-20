@@ -22,22 +22,22 @@
     <div class="col-md">
       <table class="table table-bordered table-hover">
         <tr>
-          <td class="bg-secondary text-light">No</td>
-          <td class="bg-secondary text-light">Sport Name</td>
-          <td class="bg-secondary text-light">Sport URL</td>
-          <td class="bg-secondary text-light">Image</td>
-          <td class="bg-secondary text-light">Action</td>
+          <td class="bg-secondary text-light text-center">No</td>
+          <td class="bg-secondary text-light text-center">ชื่อกีฬา</td>
+          <td class="bg-secondary text-light text-center">ลิงค์ URL</td>
+          <td class="bg-secondary text-light text-center">รูปภาพ</td>
+          <td class="bg-secondary text-light text-center">คำสั่ง</td>
         </tr>
         <?php $index = 1; ?>
         @foreach($sportList as $key => $value)
           <tr>
-            <td>{{$index}}</td>
-            <td>{{$value->name}}</td>
-            <td>{{$value->url}}</td>
-            <td>{{$value->image}}</td>
-            <td>
-              <a href="{{url('/admin/sport/'.$value->id)}}" class="btn btn-sm btn-info text-white">
-                ดูข้อมูล
+            <td class="text-center">{{$index}}</td>
+            <td class="text-center">{{$value->name}}</td>
+            <td class="text-center">{{$value->url}}</td>
+            <td class="text-center">{{$value->image}}</td>
+            <td class="text-center">
+              <a href="{{url('/admin/sport/'.$value->id)}}" class="btn btn-sm btn-info">
+                จัดการข้อมูล
               </a>
               <a href="{{url('/admin/sport/'.$value->id.'/edit')}}" class="btn btn-sm btn-primary">
                 แก้ไข
